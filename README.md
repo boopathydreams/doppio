@@ -38,17 +38,13 @@ If you kick off long, unattended agent sessions and walk away — this is for yo
 
 ## Install
 
-**Homebrew (recommended):**
+1. Download **[Doppio.dmg](https://github.com/boopathydreams/doppio/releases/latest)** from the latest release
+2. Open the DMG and drag **Doppio** to Applications
+3. Open Doppio from Applications
 
-```bash
-brew install --cask --no-quarantine boopathydreams/tap/doppio
-```
+> **First launch:** macOS may show an "unverified developer" warning since Doppio isn't notarized yet. Go to **System Settings → Privacy & Security → Open Anyway**, or right-click the app → **Open**.
 
-This installs Doppio.app **and** automatically symlinks the `doppio` CLI to `/usr/local/bin/doppio`.
-
-> The `--no-quarantine` flag is required because Doppio is not yet notarized. Without it, macOS may show a "damaged" error. To fix an existing install: `xattr -dr com.apple.quarantine /Applications/Doppio.app`
-
-**Direct download:** grab the latest `Doppio.dmg` from [Releases](https://github.com/boopathydreams/doppio/releases), drag to Applications, then open Doppio → menu bar icon → **Install CLI Tool…** to install the CLI. If macOS blocks it, go to **System Settings → Privacy & Security → Open Anyway**.
+**CLI tool:** Once Doppio is running, click the menu bar icon → **Install CLI Tool…** — this copies `doppio` to `/usr/local/bin/` so you can use it from any terminal.
 
 Doppio lives in your menu bar — no Dock icon, no window.
 
@@ -70,7 +66,7 @@ Open the menu for:
 
 ### From the command line
 
-Install the CLI (`CLI/doppio` → `/usr/local/bin/doppio`) and you're good to go:
+Install the CLI via the app menu (**Install CLI Tool…**), then:
 
 ```bash
 doppio while <command>   # stay awake for the whole command, then sleep — kill-proof
