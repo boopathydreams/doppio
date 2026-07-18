@@ -87,6 +87,12 @@ struct MenuContent: View {
         Divider()
 
         Button {
+            installCLI()
+        } label: {
+            Label("Install CLI Tool…", systemImage: "terminal")
+        }
+
+        Button {
             NSApp.terminate(nil)
         } label: {
             Label("Quit Doppio", systemImage: "power")
@@ -181,6 +187,63 @@ struct MenuContent: View {
             Label(title, systemImage: systemImage)
         }
         .keyboardShortcut(KeyEquivalent(shortcut), modifiers: .command)
+    }
+
+    // MARK: – CLI installer
+
+    private func installCLI() {
+        let dest = URL(fileURLWithPath: "/usr/local/bin/doppio")
+
+        // Find the bundled script inside the app bundle
+        guard let src = Bundle.main.url(forResource: "doppio", withExtension: nil) else {
+            showCLIAlert(
+                title: "CLI not bundled",
+                message: "Could not locate the doppio script inside the app bundle.",
+                detail: nil
+            )
+            return
+        }
+
+        do {
+            // Create /usr/local/bin if it doesn't exist
+            let bin = dest.deletingLastPathComponent()
+            try FileManager.default.createDirectory(at: bin, withIntermediateDirectories: true)
+
+            // Remove any existing file
+            if FileManager.default.fileExists(atPath: dest.path) {
+                try FileManager.default.removeItem(at: dest)
+            }
+
+            try FileManager.default.copyItem(at: src, to: dest)
+
+            // Make it executable (rwxr-xr-x)
+            try FileManager.default.setAttributes(
+                [.posixPermissions: 0o755],
+                ofItemAtPath: dest.path
+            )
+
+            showCLIAlert(
+                title: "CLI installed",
+                message: "doppio is now available at /usr/local/bin/doppio",
+                detail: "Run `doppio --help` in Terminal to confirm."
+            )
+        } catch {
+            // Permission error — show the manual command
+            showCLIAlert(
+                title: "Permission denied",
+                message: "Could not write to /usr/local/bin. Run this in Terminal:",
+                detail: "sudo cp \"\(src.path)\" /usr/local/bin/doppio && sudo chmod +x /usr/local/bin/doppio"
+            )
+        }
+    }
+
+    private func showCLIAlert(title: String, message: String, detail: String?) {
+        NSApp.activate(ignoringOtherApps: true)
+        let alert = NSAlert()
+        alert.messageText = title
+        alert.informativeText = detail.map { "\(message)\n\n\($0)" } ?? message
+        alert.addButton(withTitle: "OK")
+        alert.runModal()
     }
 
     private var headerText: String {

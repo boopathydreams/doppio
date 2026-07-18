@@ -1,0 +1,60 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3e281b"/>
+      <stop offset="0.5" stop-color="#26120a"/>
+      <stop offset="1" stop-color="#150a05"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.44" r="0.55">
+      <stop offset="0" stop-color="#d1913f" stop-opacity="0.40"/>
+      <stop offset="0.6" stop-color="#c9853a" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#c9853a" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="cup" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f9f0e2"/>
+      <stop offset="1" stop-color="#dcc3a2"/>
+    </linearGradient>
+    <linearGradient id="saucer" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eaddc9"/>
+      <stop offset="1" stop-color="#c9ad86"/>
+    </linearGradient>
+    <radialGradient id="crema" cx="0.5" cy="0.42" r="0.75">
+      <stop offset="0" stop-color="#eab868"/>
+      <stop offset="0.65" stop-color="#cf9a4f"/>
+      <stop offset="1" stop-color="#a9762f"/>
+    </radialGradient>
+    <linearGradient id="steam" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#f7ecdd" stop-opacity="0.92"/>
+      <stop offset="1" stop-color="#f7ecdd" stop-opacity="0.08"/>
+    </linearGradient>
+    <linearGradient id="edge" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.14"/>
+      <stop offset="0.15" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- background squircle -->
+  <rect x="0" y="0" width="1024" height="1024" rx="232" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1024" height="1024" rx="232" fill="url(#glow)"/>
+  <rect x="0" y="0" width="1024" height="1024" rx="232" fill="url(#edge)"/>
+
+  <!-- steam: two curls = "doppio" -->
+  <g fill="none" stroke="url(#steam)" stroke-width="22" stroke-linecap="round">
+    <path d="M470 556 C446 512 498 486 480 440 C466 404 494 380 480 340"/>
+    <path d="M554 556 C578 514 528 488 546 442 C560 406 532 382 546 344"/>
+  </g>
+
+  <!-- saucer -->
+  <ellipse cx="512" cy="788" rx="226" ry="36" fill="url(#saucer)"/>
+  <ellipse cx="512" cy="782" rx="150" ry="20" fill="#000000" opacity="0.13"/>
+
+  <!-- cup body -->
+  <path d="M362 590 L662 590 L644 712 Q636 764 578 766 L446 766 Q388 764 380 712 Z" fill="url(#cup)"/>
+
+  <!-- handle -->
+  <path d="M660 622 Q748 622 748 692 Q748 756 656 748" fill="none" stroke="url(#cup)" stroke-width="30" stroke-linecap="round"/>
+
+  <!-- crema surface -->
+  <ellipse cx="512" cy="590" rx="150" ry="32" fill="url(#crema)"/>
+  <ellipse cx="512" cy="586" rx="150" ry="30" fill="none" stroke="#f9f0e2" stroke-width="6" opacity="0.5"/>
+</svg>

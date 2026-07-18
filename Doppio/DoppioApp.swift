@@ -24,12 +24,12 @@ private struct StatusLabel: View {
     var session: AwakeSession
 
     var body: some View {
+        Image("DoppioMenuBar")
+            .renderingMode(.template)
+            .opacity(session.isActive ? 1.0 : 0.5)
         if let remaining = session.remaining {
-            Image(systemName: "cup.and.saucer.fill")
             Text(Formatting.hms(remaining))
-                .monospacedDigit()   // fixed-width digits — no horizontal jitter as seconds tick
-        } else {
-            Image(systemName: session.isActive ? "cup.and.saucer.fill" : "cup.and.saucer")
+                .monospacedDigit()
         }
     }
 }

@@ -1,0 +1,32 @@
+<svg width="560" height="150" viewBox="0 0 560 150" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="wcrema" cx="0.5" cy="0.42" r="0.75">
+      <stop offset="0" stop-color="#eab868"/>
+      <stop offset="0.65" stop-color="#cf9a4f"/>
+      <stop offset="1" stop-color="#a9762f"/>
+    </radialGradient>
+  </defs>
+
+  <!-- mark -->
+  <g>
+    <!-- steam -->
+    <g fill="none" stroke="#6b4a2f" stroke-width="6.5" stroke-linecap="round" opacity="0.55">
+      <path d="M78 46 C70 33 86 26 79 12"/>
+      <path d="M98 46 C106 33 90 26 97 12"/>
+    </g>
+    <!-- saucer -->
+    <ellipse cx="88" cy="126" rx="70" ry="11" fill="#c9ad86"/>
+    <!-- cup -->
+    <path d="M40 58 L136 58 L130 100 Q127 116 108 117 L68 117 Q49 116 46 100 Z" fill="#3a2418"/>
+    <!-- handle -->
+    <path d="M135 68 Q166 68 166 88 Q166 106 137 103" fill="none" stroke="#3a2418" stroke-width="10" stroke-linecap="round"/>
+    <!-- crema -->
+    <ellipse cx="88" cy="58" rx="48" ry="11" fill="url(#wcrema)"/>
+  </g>
+
+  <!-- wordmark -->
+  <text x="200" y="86" font-family="-apple-system, 'SF Pro Rounded', 'Segoe UI', Helvetica, Arial, sans-serif"
+        font-size="72" font-weight="800" letter-spacing="-1.5" fill="#2c1810">doppio</text>
+  <text x="203" y="118" font-family="-apple-system, 'SF Pro Text', 'Segoe UI', Helvetica, Arial, sans-serif"
+        font-size="14" font-weight="600" letter-spacing="3.5" fill="#9c7f63">A DOUBLE SHOT FOR YOUR MAC</text>
+</svg>

@@ -1,8 +1,6 @@
 <div align="center">
 
-# ☕ Doppio
-
-### A double shot for your Mac.
+<img src="docs/doppio-wordmark.svg" alt="Doppio — A double shot for your Mac" width="420">
 
 **Keep your Mac awake — with a countdown you can actually see, and a one-liner that keeps it awake for exactly as long as your AI coding agent is working.**
 
