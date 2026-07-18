@@ -38,13 +38,20 @@ If you kick off long, unattended agent sessions and walk away — this is for yo
 
 ## Install
 
-1. Download **[Doppio.dmg](https://github.com/boopathydreams/doppio/releases/latest)** from the latest release
-2. Open the DMG and drag **Doppio** to Applications
-3. Open Doppio from Applications
+**Homebrew (recommended):**
 
-> **First launch:** macOS may show an "unverified developer" warning since Doppio isn't notarized yet. Go to **System Settings → Privacy & Security → Open Anyway**, or right-click the app → **Open**.
+```bash
+brew install --cask boopathydreams/tap/doppio
+```
 
-**CLI tool:** Once Doppio is running, click the menu bar icon → **Install CLI Tool…** — this copies `doppio` to `/usr/local/bin/` so you can use it from any terminal.
+Installs Doppio.app, symlinks the `doppio` CLI to `/usr/local/bin/`, and automatically removes the macOS quarantine flag — no Gatekeeper warning.
+
+**Direct download:** grab the latest `Doppio.dmg` from [Releases](https://github.com/boopathydreams/doppio/releases), drag to Applications. Then run:
+```bash
+xattr -dr com.apple.quarantine /Applications/Doppio.app
+```
+
+**CLI tool:** Once Doppio is running, click the menu bar icon → **Install CLI Tool…**
 
 Doppio lives in your menu bar — no Dock icon, no window.
 
