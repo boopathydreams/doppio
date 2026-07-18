@@ -195,12 +195,15 @@ struct MenuContent: View {
         let dest = URL(fileURLWithPath: "/usr/local/bin/doppio")
 
         // Find the bundled script inside the app bundle
-        guard let src = Bundle.main.url(forResource: "doppio", withExtension: nil) else {
-            showCLIAlert(
-                title: "CLI not bundled",
-                message: "Could not locate the doppio script inside the app bundle.",
-                detail: nil
-            )
+        guard let resourceDir = Bundle.main.resourceURL else {
+            showCLIAlert(title: "CLI not bundled",
+                         message: "Could not locate the app bundle Resources folder.", detail: nil)
+            return
+        }
+        let src = resourceDir.appendingPathComponent("doppio")
+        guard FileManager.default.fileExists(atPath: src.path) else {
+            showCLIAlert(title: "CLI not bundled",
+                         message: "Could not locate the doppio script inside the app bundle.", detail: nil)
             return
         }
 
