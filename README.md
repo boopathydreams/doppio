@@ -4,8 +4,8 @@
 
 **Keep your Mac awake — with a countdown you can actually see, and a one-liner that keeps it awake for exactly as long as your AI coding agent is working.**
 
-[![Release](https://img.shields.io/github/v/release/boopathy-nr/doppio?style=flat-square)](https://github.com/boopathy-nr/doppio/releases)
-[![Downloads](https://img.shields.io/github/downloads/boopathy-nr/doppio/total?style=flat-square)](https://github.com/boopathy-nr/doppio/releases)
+[![Release](https://img.shields.io/github/v/release/boopathydreams/doppio?style=flat-square)](https://github.com/boopathydreams/doppio/releases)
+[![Downloads](https://img.shields.io/github/downloads/boopathydreams/doppio/total?style=flat-square)](https://github.com/boopathydreams/doppio/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-black.svg?style=flat-square)](LICENSE)
 [![Platform](https://img.shields.io/badge/macOS-26%2B-black?style=flat-square&logo=apple)](https://www.apple.com/macos/)
 [![Built with Swift](https://img.shields.io/badge/Swift-6-orange?style=flat-square&logo=swift)](https://swift.org)
@@ -41,15 +41,14 @@ If you kick off long, unattended agent sessions and walk away — this is for yo
 **Homebrew (recommended):**
 
 ```bash
-brew install --cask doppio
+brew install --cask boopathydreams/tap/doppio
 ```
 
-> Until the cask lands in `homebrew-cask` core, install from the tap:
-> `brew install --cask boopathy-nr/tap/doppio`
+This installs Doppio.app **and** automatically symlinks the `doppio` CLI to `/usr/local/bin/doppio`.
 
-**Direct download:** grab the latest `Doppio.dmg` from [Releases](https://github.com/boopathy-nr/doppio/releases), drag it to Applications, and launch. The build is signed with a Developer ID and notarized by Apple, so Gatekeeper won't complain.
+**Direct download:** grab the latest `Doppio.dmg` from [Releases](https://github.com/boopathydreams/doppio/releases), drag to Applications, then open Doppio → menu bar icon → **Install CLI Tool…** to install the CLI.
 
-**CLI only:** copy `CLI/doppio` to `/usr/local/bin/` and `chmod +x` it. The `doppio while` command works independently of the GUI app.
+> **Note:** The app is not yet notarized. On first launch, right-click Doppio.app → Open, then confirm.
 
 Doppio lives in your menu bar — no Dock icon, no window.
 
@@ -183,7 +182,7 @@ The app is built with Swift 6 and SwiftUI (`MenuBarExtra`), targeting **macOS 26
 ## Building from source
 
 ```bash
-git clone https://github.com/boopathy-nr/doppio.git
+git clone https://github.com/boopathydreams/doppio.git
 cd doppio
 open Doppio.xcodeproj    # Xcode 16+ required; ⌘R to build and run
 ```
