@@ -192,9 +192,6 @@ struct MenuContent: View {
     // MARK: – CLI installer
 
     private func installCLI() {
-        let dest = URL(fileURLWithPath: "/usr/local/bin/doppio")
-
-        // Find the bundled script inside the app bundle
         guard let resourceDir = Bundle.main.resourceURL else {
             showCLIAlert(title: "CLI not bundled",
                          message: "Could not locate the app bundle Resources folder.", detail: nil)
@@ -207,37 +204,51 @@ struct MenuContent: View {
             return
         }
 
-        do {
-            // Create /usr/local/bin if it doesn't exist
-            let bin = dest.deletingLastPathComponent()
-            try FileManager.default.createDirectory(at: bin, withIntermediateDirectories: true)
-
-            // Remove any existing file
-            if FileManager.default.fileExists(atPath: dest.path) {
-                try FileManager.default.removeItem(at: dest)
-            }
-
-            try FileManager.default.copyItem(at: src, to: dest)
-
-            // Make it executable (rwxr-xr-x)
-            try FileManager.default.setAttributes(
-                [.posixPermissions: 0o755],
-                ofItemAtPath: dest.path
-            )
-
-            showCLIAlert(
-                title: "CLI installed",
-                message: "doppio is now available at /usr/local/bin/doppio",
-                detail: "Run `doppio --help` in Terminal to confirm."
-            )
-        } catch {
-            // Permission error — show the manual command
-            showCLIAlert(
-                title: "Permission denied",
-                message: "Could not write to /usr/local/bin. Run this in Terminal:",
-                detail: "sudo cp \"\(src.path)\" /usr/local/bin/doppio && sudo chmod +x /usr/local/bin/doppio"
-            )
+        // Already installed (e.g. via Homebrew symlink)?
+        let usrLocalBin = URL(fileURLWithPath: "/usr/local/bin/doppio")
+        if FileManager.default.fileExists(atPath: usrLocalBin.path) {
+            showCLIAlert(title: "CLI already installed",
+                         message: "doppio is already available at /usr/local/bin/doppio.",
+                         detail: "Run `doppio --help` in Terminal to use it.")
+            return
         }
+
+        // Try /usr/local/bin first, fall back to ~/.local/bin (no sudo needed)
+        let candidates: [URL] = [
+            usrLocalBin,
+            URL(fileURLWithPath: (NSHomeDirectory() as NSString).appendingPathComponent(".local/bin/doppio"))
+        ]
+
+        for dest in candidates {
+            do {
+                try FileManager.default.createDirectory(
+                    at: dest.deletingLastPathComponent(), withIntermediateDirectories: true)
+                if FileManager.default.fileExists(atPath: dest.path) {
+                    try FileManager.default.removeItem(at: dest)
+                }
+                try FileManager.default.copyItem(at: src, to: dest)
+                try FileManager.default.setAttributes([.posixPermissions: 0o755], ofItemAtPath: dest.path)
+
+                let isLocalBin = dest.path.contains(".local/bin")
+                showCLIAlert(
+                    title: "CLI installed",
+                    message: "doppio installed to \(dest.path)",
+                    detail: isLocalBin
+                        ? "Add ~/.local/bin to your PATH if not already:\n  echo 'export PATH=\"$HOME/.local/bin:$PATH\"' >> ~/.zshrc"
+                        : "Run `doppio --help` in Terminal to confirm."
+                )
+                return
+            } catch {
+                continue
+            }
+        }
+
+        // Both failed — show manual command
+        showCLIAlert(
+            title: "Permission denied",
+            message: "Could not install automatically. Run this in Terminal:",
+            detail: "sudo cp \"\(src.path)\" /usr/local/bin/doppio && sudo chmod +x /usr/local/bin/doppio"
+        )
     }
 
     private func showCLIAlert(title: String, message: String, detail: String?) {
