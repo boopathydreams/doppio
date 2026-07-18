@@ -1,0 +1,75 @@
+<svg width="1280" height="640" viewBox="0 0 1280 640" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3e281b"/>
+      <stop offset="0.5" stop-color="#26120a"/>
+      <stop offset="1" stop-color="#150a05"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.48" r="0.55">
+      <stop offset="0" stop-color="#d1913f" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#d1913f" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="cup" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f9f0e2"/>
+      <stop offset="1" stop-color="#dcc3a2"/>
+    </linearGradient>
+    <linearGradient id="saucer" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eaddc9"/>
+      <stop offset="1" stop-color="#c9ad86"/>
+    </linearGradient>
+    <radialGradient id="crema" cx="0.5" cy="0.42" r="0.75">
+      <stop offset="0" stop-color="#eab868"/>
+      <stop offset="0.65" stop-color="#cf9a4f"/>
+      <stop offset="1" stop-color="#a9762f"/>
+    </radialGradient>
+    <linearGradient id="steam" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#f7ecdd" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#f7ecdd" stop-opacity="0.05"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1280" height="640" fill="url(#bg)"/>
+  <rect width="1280" height="640" fill="url(#glow)"/>
+
+  <!-- Cup illustration — centered at (340, 320), scaled ~0.38 from 1024px icon -->
+  <g transform="translate(340,320) scale(0.38) translate(-512,-512)">
+    <!-- steam -->
+    <g fill="none" stroke="url(#steam)" stroke-width="22" stroke-linecap="round">
+      <path d="M470 556 C446 512 498 486 480 440 C466 404 494 380 480 340"/>
+      <path d="M554 556 C578 514 528 488 546 442 C560 406 532 382 546 344"/>
+    </g>
+    <!-- saucer shadow -->
+    <ellipse cx="512" cy="782" rx="150" ry="20" fill="#000000" opacity="0.18"/>
+    <!-- saucer -->
+    <ellipse cx="512" cy="788" rx="226" ry="36" fill="url(#saucer)"/>
+    <!-- cup body -->
+    <path d="M362 590 L662 590 L644 712 Q636 764 578 766 L446 766 Q388 764 380 712 Z" fill="url(#cup)"/>
+    <!-- handle -->
+    <path d="M660 622 Q748 622 748 692 Q748 756 656 748" fill="none" stroke="url(#cup)" stroke-width="30" stroke-linecap="round"/>
+    <!-- crema -->
+    <ellipse cx="512" cy="590" rx="150" ry="32" fill="url(#crema)"/>
+    <ellipse cx="512" cy="586" rx="150" ry="30" fill="none" stroke="#f9f0e2" stroke-width="6" opacity="0.4"/>
+  </g>
+
+  <!-- Wordmark text block — right of center -->
+  <text x="560" y="278"
+        font-family="-apple-system, 'SF Pro Rounded', Helvetica, Arial, sans-serif"
+        font-size="148" font-weight="800" letter-spacing="-3"
+        fill="#f9f0e2">doppio</text>
+
+  <!-- Tagline -->
+  <text x="563" y="340"
+        font-family="-apple-system, 'SF Pro Text', Helvetica, Arial, sans-serif"
+        font-size="26" font-weight="600" letter-spacing="5"
+        fill="#c9a06a">A DOUBLE SHOT FOR YOUR MAC</text>
+
+  <!-- Divider -->
+  <rect x="563" y="368" width="560" height="2" fill="#c9a06a" opacity="0.25" rx="1"/>
+
+  <!-- Descriptor line -->
+  <text x="563" y="414"
+        font-family="-apple-system, 'SF Pro Text', Helvetica, Arial, sans-serif"
+        font-size="24" font-weight="400"
+        fill="#a07850" opacity="0.9">Keep your Mac awake · Live countdown · Built for AI agents</text>
+</svg>
