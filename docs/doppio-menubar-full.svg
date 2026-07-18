@@ -1,0 +1,13 @@
+<svg width="44" height="44" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+  <!-- steam: two curls -->
+  <g fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M19 20 C17.6 17.4 20.4 16 19.2 13.4"/>
+    <path d="M25 20 C26.4 17.4 23.6 16 24.8 13.4"/>
+  </g>
+  <!-- cup (filled) -->
+  <path d="M13 23 H29 L27.6 32 Q27.2 35 24 35 H18 Q14.8 35 14.4 32 Z" fill="#ffffff"/>
+  <!-- handle -->
+  <path d="M29 25 Q33.5 25 33.5 28.5 Q33.5 32 29.4 31.6" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round"/>
+  <!-- saucer -->
+  <path d="M11 38 H33" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round"/>
+</svg>

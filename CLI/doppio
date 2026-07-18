@@ -35,13 +35,38 @@ PY
 
   # Write Claude Code hooks that wrap the whole session.
   install-claude-hook)
-    cfg="$HOME/.claude/settings.json"
-    echo "Add these hooks to $cfg (SessionStart → activate, SessionEnd → deactivate):"
     cat <<'JSON'
-{ "hooks": {
-    "SessionStart": [{ "hooks": [{ "type": "command", "command": "open 'doppio://activate'" }] }],
-    "SessionEnd":   [{ "hooks": [{ "type": "command", "command": "open 'doppio://deactivate'" }] }]
-} }
+Add the following to ~/.claude/settings.json under "hooks":
+
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [{ "type": "command", "command": "open 'doppio://activate'" }]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "osascript -e 'display notification \"Claude finished — Mac will sleep when session ends\" with title \"Doppio\" sound name \"Glass\"'"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [{ "type": "command", "command": "open 'doppio://deactivate'" }]
+      }
+    ]
+  }
+}
+
+Hook summary:
+  SessionStart  → activates Doppio (keeps Mac awake for the session)
+  Stop          → notifies you when Claude finishes a task/response
+  SessionEnd    → deactivates Doppio (Mac can sleep again)
 JSON
     ;;
 

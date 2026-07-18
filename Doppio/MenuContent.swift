@@ -9,12 +9,11 @@ struct MenuContent: View {
 
     var body: some View {
         // ── Status header ──────────────────────────────────────────────
+        // isTemplate=false NSImage bypasses NSMenu's monochrome recoloring.
         Label {
             Text(headerText).fontWeight(.semibold)
         } icon: {
-            Image(systemName: "circle.fill")
-                .foregroundStyle(session.isActive ? Color.green : Color.secondary)
-                .font(.system(size: 8))
+            Image(nsImage: statusDotImage(active: session.isActive))
         }
 
         Divider()
@@ -86,10 +85,12 @@ struct MenuContent: View {
 
         Divider()
 
-        Button {
-            installCLI()
-        } label: {
-            Label("Install CLI Tool…", systemImage: "terminal")
+        if !cliIsInstalled {
+            Button {
+                installCLI()
+            } label: {
+                Label("Install CLI Tool…", systemImage: "terminal")
+            }
         }
 
         Button {
@@ -98,6 +99,28 @@ struct MenuContent: View {
             Label("Quit Doppio", systemImage: "power")
         }
         .keyboardShortcut("q")
+    }
+
+    // MARK: – Status dot
+
+    private func statusDotImage(active: Bool) -> NSImage {
+        let img = NSImage(size: NSSize(width: 14, height: 14), flipped: false) { rect in
+            let color: NSColor = active ? .systemGreen : .tertiaryLabelColor
+            color.setFill()
+            NSBezierPath(ovalIn: rect.insetBy(dx: 1, dy: 1)).fill()
+            return true
+        }
+        img.isTemplate = false
+        return img
+    }
+
+    // MARK: – CLI helpers
+
+    private var cliIsInstalled: Bool {
+        let fm = FileManager.default
+        return fm.fileExists(atPath: "/usr/local/bin/doppio") ||
+               fm.fileExists(atPath: (NSHomeDirectory() as NSString)
+                   .appendingPathComponent(".local/bin/doppio"))
     }
 
     // MARK: – Custom preset helpers

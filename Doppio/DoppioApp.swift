@@ -24,9 +24,8 @@ private struct StatusLabel: View {
     var session: AwakeSession
 
     var body: some View {
-        Image("DoppioMenuBar")
+        Image(session.isActive ? "DoppioMenuBarFull" : "DoppioMenuBarEmpty")
             .renderingMode(.template)
-            .opacity(session.isActive ? 1.0 : 0.5)
         if let remaining = session.remaining {
             Text(Formatting.hms(remaining))
                 .monospacedDigit()
