@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+STATE="$HOME/Library/Application Support/Doppio/state.json"
+
+cmd="${1:-help}"; shift || true
+
+case "$cmd" in
+  # Stay awake for the WHOLE lifetime of a command, then sleep. Kill-proof.
+  # Usage: doppio while claude  |  doppio while npm test  |  doppio while <any long job>
+  while)
+    open "doppio://activate" >/dev/null 2>&1 || true   # show it in the menu bar (best-effort)
+    trap 'open "doppio://deactivate" >/dev/null 2>&1 || true' EXIT
+    caffeinate -dis "$@"                                # assertion dies with the process
+    ;;
+
+  # Manual on/off (drives the GUI app).
+  on)   open "doppio://activate${1:+?minutes=$1}" ;;    # doppio on 120 → 2 hours; doppio on → no limit
+  off)  open "doppio://deactivate" ;;
+  toggle) open "doppio://toggle" ;;
+
+  # Read state published by the app.
+  status)
+    if [[ -f "$STATE" ]]; then
+      python3 - "$STATE" <<'PY'
+import json,sys,time
+d=json.load(open(sys.argv[1]))
+if not d.get("active"): print("asleep-friendly"); raise SystemExit
+end=d.get("endEpoch",0)
+if end: print(f"awake · {int(max(0,end-time.time()))//60}m left")
+else:   print("awake · no limit")
+PY
+    else echo "asleep-friendly"; fi
+    ;;
+
+  # Write Claude Code hooks that wrap the whole session.
+  install-claude-hook)
+    cfg="$HOME/.claude/settings.json"
+    echo "Add these hooks to $cfg (SessionStart → activate, SessionEnd → deactivate):"
+    cat <<'JSON'
+{ "hooks": {
+    "SessionStart": [{ "hooks": [{ "type": "command", "command": "open 'doppio://activate'" }] }],
+    "SessionEnd":   [{ "hooks": [{ "type": "command", "command": "open 'doppio://deactivate'" }] }]
+} }
+JSON
+    ;;
+
+  *) cat <<'USAGE'
+doppio — keep this Mac awake (a double shot for your Mac)
+  doppio while <cmd>   stay awake for the whole command, then sleep (recommended for agents)
+  doppio on [minutes]  turn on (no minutes = no limit)
+  doppio off           turn off
+  doppio toggle        toggle
+  doppio status        print current state
+  doppio install-claude-hook   print Claude Code hook config
+USAGE
+    ;;
+esac
